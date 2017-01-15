@@ -1,0 +1,62 @@
+@(anunt: Anunt)(comentariuForm: Form[Comentariu])
+
+@import helper._
+
+@import b3.vertical.fieldConstructor
+
+@main("Anunt"){
+
+    <div class="thumbnail">
+        <img class="img-responsive" src="http://placehold.it/800x300" alt="">
+        <div class="caption-full">
+            <h4 class="pull-right">@anunt.pret RON</h4>
+            <h4>@anunt.titlu</h4>
+            <p>@anunt.detalii</p>
+
+            <h5>Telefon: @anunt.telefon</h5>
+            <h5>Locatie: @anunt.localitate, @anunt.judet.judet</h5>
+        </div>
+        <div class="ratings">
+            <p class="pull-right">@anunt.afisari Afisari</p>
+            <p style="">
+                <span class="glyphicon glyphicon-star" style="display:none"></span>
+                <span class="glyphicon glyphicon-star" style="display:none"></span>
+                <span class="glyphicon glyphicon-star" style="display:none"></span>
+                <span class="glyphicon glyphicon-star" style="display:none"></span>
+                @anunt.dataora
+            </p>
+        </div>
+
+    </div>
+
+    <div class="well">
+        <div class="row text-right" style="min-height: 100px">
+            @b3.form(routes.ComentariuController.adauga(anunt.id)){
+                <div class="col-md-10">
+                    @b3.textarea(comentariuForm("comentariu"),'placeholder -> "Comentariu Tau",'rows -> "4", 'style -> "resize: none" )
+                    <input type="hidden" value="@anunt.id" name="anunt.id"/>
+                    <input type="hidden" value="100" name="user_id"/>
+
+                </div>
+                <div class="col-md-2">
+                    <div class="actions pull-right">
+                        <input type="submit" value="Adauga Comentariu" class="btn btn-success">
+                    </div>
+                </div>
+            }
+        </div>
+        <hr>
+            @for(comentariu <- anunt.comentarii){
+                <div class="row">
+                    <div class="col-md-12">
+                    Utilizator:
+                        <span class="pull-right">@comentariu.dataora</span>
+                        <p>@comentariu.comentariu</p>
+                    </div>
+                </div>
+                <hr>
+                }
+    </div>
+
+
+}

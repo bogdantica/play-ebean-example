@@ -1,0 +1,38 @@
+@*(message: String)
+@*(currentPage: com.avaje.ebean.PagedList[Computer], currentSortBy: String, currentOrder: String, currentFilter: String)*@
+@(anunturi: java.util.List[Anunt])
+
+@import helper._
+
+@import b3.vertical.fieldConstructor
+
+@*
+* Call the `main` template with two arguments. The first
+* argument is a `String` with the title of the page, the second
+* argument is an `Html` object containing the body of the page.
+*@
+@main("Cautare") {
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="text-center">Rezultate Cautare</h3>
+        </div>
+        <div><hr/></div>
+    </div>
+    <div class="row">
+
+    @for( anunt <- anunturi){
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <img src="http://placehold.it/320x150" alt="">
+                <div class="caption">
+                    <h4 class="pull-right">@anunt.pret RON</h4>
+                    <h4><a href="@routes.AnuntController.anunt(anunt.id)">@anunt.titlu</a>
+                    </h4>
+                    <p>@anunt.detalii</p>
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+}

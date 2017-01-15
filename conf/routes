@@ -1,0 +1,45 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+
+
+# ANUNT
+
+GET     /anunt/adauga               controllers.AnuntController.adauga()
+
+GET    /anunt/cauta controllers.AnuntController.cauta()
+
+GET     /anunt/:id                  controllers.AnuntController.anunt(id:Long)
+
+
+POST    /anunt/salveaza             controllers.AnuntController.salveaza()
+
+# Comentariu
+
+POST    /comentariu/adauga/:anunt_id          controllers.ComentariuController.adauga(anunt_id: Long)
+
+
+GET /                   controllers.TikController.home()
+
+
+# Default path will just redirect to the computer list
+#GET     /computers/list                           controllers.Home2Controller.index()
+
+# Computers list (look at the default values for pagination parameters)
+#GET     /computers                  controllers.Home2Controller.list(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "")
+
+# Add computer
+#GET     /computers/new              controllers.Home2Controller.create()
+#POST    /computers                  controllers.Home2Controller.save()
+
+# Edit existing computer
+#GET     /computers/:id              controllers.Home2Controller.edit(id:Long)
+#POST    /computers/:id              controllers.Home2Controller.update(id:Long)
+
+# Delete a computer
+#POST    /computers/:id/delete       controllers.Home2Controller.delete(id:Long)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
