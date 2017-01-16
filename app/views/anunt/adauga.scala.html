@@ -12,10 +12,10 @@
     </div>
 
     <div class="row">
-            @b3.form(routes.AnuntController.salveaza()) {
+            @b3.form(routes.AnuntController.salveaza(),'enctype -> "multipart/form-data") {
                 <div class="col-sm-12">
                     @b3.text(anuntForm("titlu"), '_label -> "Titlu", '_help -> "")
-
+                    <input type="hidden" name="user.id" value="@session().get("user_id")"/>
                     @b3.select(
                         anuntForm("categorie.id"),
                         options(Categorie.options),
@@ -31,7 +31,7 @@
                     )
                     @b3.text(anuntForm("localitate"), '_label -> "Localitate", '_help -> "")
                     @b3.text(anuntForm("telefon"), '_label -> "Telefon", '_help -> "")
-                    @b3.text(anuntForm("poza"), '_label -> "Poza", '_help -> "")
+                    @b3.file(anuntForm("poza"), '_label -> "Poza", '_help -> "")
                     @b3.text(anuntForm("poza2"), '_label -> "Poza", '_help -> "")
 
                     <div class="actions">

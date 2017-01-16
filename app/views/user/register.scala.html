@@ -1,0 +1,27 @@
+@(user: Form[User])
+
+
+@import helper._
+
+@import b3.vertical.fieldConstructor
+
+
+@main("Inregistrare") {
+
+    <div class="main-login main-center">
+        @b3.form(routes.UserController.store()) {
+            @b3.text(user("nume"), '_label -> "Nume", '_help -> "")
+            @b3.text(user("prenume"), '_label -> "Prenume", '_help -> "")
+            @b3.text(user("telefon"), '_label -> "Telefon", '_help -> "")
+            @b3.email(user("email"), '_label -> "Email", '_help -> "")
+            @b3.password(user("parola"), '_label -> "Parola", '_help -> "")
+
+            <div class="form-group ">
+                <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Inregistrare</button>
+            </div>
+            <div class="login-register">
+                <a href="@routes.UserController.login()">Autentificare</a>
+            </div>
+        }
+    </div>
+}

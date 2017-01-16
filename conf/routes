@@ -3,6 +3,25 @@
 # ~~~~
 
 
+#Login
+
+GET     /login                      controllers.UserController.login()
+
+GET     /logout                     controllers.UserController.logout()
+
+POST    /auth                       controllers.UserController.auth()
+
+GET     /register                   controllers.UserController.register()
+
+POST    /store                      controllers.UserController.store()
+
+GET     /edit/:id                       controllers.UserController.edit(id: Long)
+
+POST    /update                     controllers.UserController.update()
+
+#cont
+
+GET     /anunturi/:user_id               controllers.UserController.anunturi(user_id: Long)
 
 # ANUNT
 
@@ -12,8 +31,12 @@ GET    /anunt/cauta controllers.AnuntController.cauta()
 
 GET     /anunt/:id                  controllers.AnuntController.anunt(id:Long)
 
+GET     /anunt/edit/:id             controllers.AnuntController.edit(id: Long)
 
 POST    /anunt/salveaza             controllers.AnuntController.salveaza()
+
+POST    /anunt/update             controllers.AnuntController.update()
+
 
 # Comentariu
 

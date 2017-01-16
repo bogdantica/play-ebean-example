@@ -52,8 +52,8 @@ public class Anunt extends Model {
     public Date dataora;
 
 
-//    @ManyToOne
-//    public User user;
+    @ManyToOne
+    public User user;
 
     @ManyToOne
     public Categorie categorie;

@@ -1,0 +1,20 @@
+
+@import helper._
+
+@import b3.vertical.fieldConstructor
+
+
+
+@main("Login"){
+    <div class="loginmodal-container">
+        <h1>Autentificare</h1><br>
+        @b3.form(routes.UserController.auth()) {
+            <input type="text" name="email" placeholder="Email">
+            <input type="password" name="parola" placeholder="Parola">
+            <input type="submit" name="login" class="login loginmodal-submit" value="Autentifica">
+        }
+        <div class="login-help">
+            <a href="@routes.UserController.register()">Register</a>
+        </div>
+    </div>
+}

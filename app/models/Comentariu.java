@@ -34,7 +34,9 @@ public class Comentariu extends Model {
     @JoinColumn(name = "anunt_id")
     public Anunt anunt;
 
-    public Long user_id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    public User user;
 
 
     @Override

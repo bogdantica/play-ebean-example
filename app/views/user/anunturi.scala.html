@@ -1,0 +1,30 @@
+@(anunturi: List[Anunt])
+
+
+@main("Anunturile Mele"){
+    <div class="container">
+        <h3>Anunturile Mele</h3>
+        <ul class="nav nav-tabs">
+            <li><a href="@routes.UserController.edit(Long.parseLong(session.get("user_id")))">Cont</a></li>
+            <li class="active"><a href="@routes.UserController.anunturi(Long.parseLong(session.get("user_id")))">Anunturile Mele</a></li>
+        </ul>
+        <br>
+        <div class="row">
+
+        @for( anunt <- anunturi){
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail">
+                    <img src="http://placehold.it/320x150" alt="">
+                    <div class="caption">
+                        <h4 class="pull-right">@anunt.pret RON</h4>
+                        <h4><a href="@routes.AnuntController.edit(anunt.id)">@anunt.titlu</a> <small>- Modifica</small>
+                        </h4>
+                        <p>@anunt.detalii</p>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+
+}

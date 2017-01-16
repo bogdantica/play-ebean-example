@@ -3,6 +3,7 @@ package controllers;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Expr;
 import com.avaje.ebean.Transaction;
+import play.api.mvc.MultipartFormData;
 import play.mvc.*;
 import play.data.*;
 import static play.data.Form.*;
@@ -11,6 +12,7 @@ import models.*;
 
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -67,16 +69,52 @@ public class AnuntController extends Controller {
 
         if(anuntForm.hasErrors()){
             return badRequest(views.html.anunt.adauga.render(anuntForm));
-
         }
+
+        Http.MultipartFormData<File> body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> poza_temp = body.getFile("poza");
+        File poza = poza_temp.getFile();
+
 
         anuntForm.get().save();
 
+        Anunt anuntModel = anuntForm.get();
+
+        try {
+            anuntModel.poza = poza.getCanonicalPath();
+
+        }catch (Exception name){
+
+        }
+        anuntModel.save();
         flash("success","Anuntul a fost adaugat cu success");
 
         return Results.redirect(routes.TikController.home());
     }
+    public Result update(){
 
+        Form<Anunt> anuntForm = formFactory.form(Anunt.class).bindFromRequest();
+
+        if(anuntForm.hasErrors()){
+            return badRequest(views.html.anunt.adauga.render(anuntForm));
+
+        }
+
+        anuntForm.get().update();
+
+        flash("success","Anuntul a fost modificat");
+
+        return Results.redirect(routes.TikController.home());
+    }
+
+    public Result edit(Long id){
+
+        Anunt anunt = Anunt.find.byId(id);
+
+        Form<Anunt> anuntForm = formFactory.form(Anunt.class).fill(anunt);
+
+        return ok(views.html.anunt.edit.render(anuntForm,anunt.id));
+    }
 
 
 }

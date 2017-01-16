@@ -51,6 +51,8 @@ create table user(
 
   constraint pk_user primary key(id)
 );
+insert into user(id,nume,prenume,email,parola) values (1000,'Tica', 'Bogdan','admin@admin.com','admin123');
+
 
 create table judet (
   id  BIGINT not null,
@@ -63,6 +65,8 @@ create table judet (
 create sequence anunt_seq start with 1000;
 create sequence comentariu_seq start with 1000;
 create sequence judet_seq start with 1000;
+create sequence user_seq start with 1000;
+create sequence categorie_seq start with 1000;
 
 
 alter table anunt add constraint fk_anunt_user_1 foreign key (user_id) references user(id) on delete restrict on update restrict;
@@ -110,6 +114,9 @@ drop sequence if exists comentariu_seq;
 drop sequence if exists user_seq;
 
 drop sequence if exists judet_seq;
+
+drop sequence if exists categorie_seq;
+
 
 
 

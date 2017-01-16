@@ -1,0 +1,41 @@
+@(anunt: Form[Anunt])(id: Long)
+
+@import helper._
+
+@import b3.vertical.fieldConstructor
+
+
+@main("Editeaza anunt"){
+    <div class="row">
+        <h3 class="text-center">Editeaza </h3>
+    </div>
+
+    <div class="row">
+    @b3.form(routes.AnuntController.update()) {
+        <div class="col-sm-12">
+            @b3.text(anunt("titlu"), '_label -> "Titlu", '_help -> "")
+            <input type="hidden" name="id" value="@id"/>
+            @b3.select(
+                anunt("categorie.id"),
+                options(Categorie.options),
+                '_label -> "Categorie",
+                '_showConstraints -> true
+            )
+            @b3.textarea(anunt("detalii"), '_label -> "Detalii", '_help -> "")
+            @b3.text(anunt("pret"), '_label -> "Pret", '_help -> "")
+            @b3.select(
+                anunt("judet.id"),
+                options(Judet.options),
+                '_label -> "Judet"
+            )
+            @b3.text(anunt("localitate"), '_label -> "Localitate", '_help -> "")
+            @b3.text(anunt("telefon"), '_label -> "Telefon", '_help -> "")
+            @b3.text(anunt("poza"), '_label -> "Poza", '_help -> "")
+            @b3.text(anunt("poza2"), '_label -> "Poza", '_help -> "")
+            <div class="actions">
+                <input type="submit" value="Modifica" class="btn primary">
+            </div>
+        </div>
+    }
+    </div>
+}
