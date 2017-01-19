@@ -24,12 +24,14 @@
         @for( anunt <- anunturi){
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail">
-                    <img src="http://placehold.it/320x150" alt="">
+                    <img src="@routes.Assets.at("img/"+anunt.poza)" alt="">
                     <div class="caption">
                         <h4 class="pull-right">@anunt.pret RON</h4>
                         <h4><a href="@routes.AnuntController.anunt(anunt.id)">@anunt.titlu</a>
                         </h4>
-                        <p>@anunt.detalii</p>
+                        <p>@anunt.detalii
+
+                        </p>
                     </div>
                 </div>
             </div>

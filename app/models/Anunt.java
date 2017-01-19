@@ -1,5 +1,6 @@
 package models;
 
+import java.security.Timestamp;
 import java.util.*;
 import javax.persistence.*;
 import javax.persistence.OrderBy;
@@ -75,7 +76,9 @@ public class Anunt extends Model {
         super.save();
     }
 
-
+    public void setPoza(String path){
+        this.poza = path;
+    }
     /**
      * Generic query helper for entity Computer with id Long
      */

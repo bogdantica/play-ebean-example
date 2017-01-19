@@ -1,20 +1,23 @@
 package controllers;
 
+import ch.qos.logback.core.util.FileUtil;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Expr;
 import com.avaje.ebean.Transaction;
+import org.h2.store.fs.FileUtils;
+import org.springframework.util.FileCopyUtils;
+import play.api.Play;
 import play.api.mvc.MultipartFormData;
 import play.mvc.*;
 import play.data.*;
 import static play.data.Form.*;
-
+import play.api.Play.*;
 import models.*;
 
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
 import java.io.File;
 import java.util.List;
-
 /**
  * Created by tkagnus on 15/01/2017.
  */
@@ -29,6 +32,7 @@ public class AnuntController extends Controller {
 
 
     public Result cauta(){
+
         String key = form().bindFromRequest().get("key").toString();
         Long judet_id = Long.parseLong(form().bindFromRequest().get("judet_id"));
         List<Anunt> anunturi = Anunt.find
@@ -49,10 +53,12 @@ public class AnuntController extends Controller {
     public Result anunt(Long id){
 
         Anunt anunt = Anunt.find.byId(id);
-
-        anunt.afisari = anunt.afisari + 1;
+        if(anunt.afisari != null) {
+            anunt.afisari = anunt.afisari + 1;
+        }else{
+            anunt.afisari = 0L;
+        }
         anunt.update();
-
         Form<Comentariu> comentariuForm = formFactory.form(Comentariu.class);
         return ok(views.html.anunt.anunt.render(anunt,comentariuForm));
     }
@@ -73,18 +79,26 @@ public class AnuntController extends Controller {
 
         Http.MultipartFormData<File> body = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart<File> poza_temp = body.getFile("poza");
+        Http.MultipartFormData.FilePart<File> poza_temp2 = body.getFile("poza2");
+
         File poza = poza_temp.getFile();
+        File poza2 = poza_temp2.getFile();
 
-
-        anuntForm.get().save();
+        String path = "/Work/dai-play/play-ebean-example/public/img/";
 
         Anunt anuntModel = anuntForm.get();
 
-        try {
-            anuntModel.poza = poza.getCanonicalPath();
-
-        }catch (Exception name){
-
+        if(poza.renameTo(new File(path,poza_temp.getFilename()))){
+            anuntModel.setPoza(poza.getAbsolutePath());
+            anuntModel.poza = poza_temp.getFilename();
+        }else{
+            anuntModel.poza = "";
+        }
+        if(poza2.renameTo(new File(path,poza_temp2.getFilename()))){
+            anuntModel.poza2 = poza2.getAbsolutePath();
+            anuntModel.poza = poza_temp2.getFilename();
+        }else{
+            anuntModel.poza2 = "";
         }
         anuntModel.save();
         flash("success","Anuntul a fost adaugat cu success");

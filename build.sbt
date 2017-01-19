@@ -8,3 +8,4 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
   
 libraryDependencies += jdbc
 libraryDependencies += "com.adrianhurt" %% "play-bootstrap" % "1.0-P25-B3"
+libraryDependencies += "org.apache.directory.studio" % "org.apache.commons.io" % "2.4"

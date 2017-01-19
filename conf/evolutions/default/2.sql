@@ -1,10 +1,6 @@
 
+
 # --- !Ups
-
-
-insert into categorie (id,nume) values (  1000,'Auto');
-insert into categorie (id,nume) values (  1001,'Moto');
-insert into categorie (id,nume) values (  1002,'Electrocasnice');
 
 
 INSERT INTO `judet` (`id`, `code`, `judet`) VALUES
@@ -51,18 +47,5 @@ INSERT INTO `judet` (`id`, `code`, `judet`) VALUES
             (41, 'SB', 'Sibiu'),
             (42, 'OT', 'Olt');
 
-
-
-insert into anunt (id,titlu,categorie_id,pret) values ( 1000,'Skoda',1001,1001.0);
-
-
 # --- !Downs
-
--- delete from anunt;
---
--- delete from user ;
---
--- delete from categorie;
---
--- delete from judet;
 

@@ -23,12 +23,25 @@ create table anunt(
 
 );
 
+-- create table categorie(
+--   id    bigint ,
+--   nume  VARCHAR(255),
+--
+--   CONSTRAINT pk_categorie PRIMARY KEY (id)
+-- );
+
 create table categorie(
-  id    bigint not null,
+  id    BIGINT NOT NULL ,
   nume  VARCHAR(255),
 
-  CONSTRAINT pk_categorie PRIMARY KEY (id)
+  CONSTRAINT pk_categorie  PRIMARY KEY(id)
 );
+
+insert into categorie (id, nume) values ( 1000, 'Auto');
+insert into categorie (id, nume) values ( 1001, 'Moto');
+insert into categorie (id, nume) values (  1002,'Electrocasnice');
+insert into categorie (id, nume) values (  1003,'IT');
+insert into categorie (id, nume) values (  1004,'Hobby');
 
 create table comentariu (
   id  bigint not null,
@@ -51,7 +64,17 @@ create table user(
 
   constraint pk_user primary key(id)
 );
+
 insert into user(id,nume,prenume,email,parola) values (1000,'Tica', 'Bogdan','admin@admin.com','admin123');
+insert into user(id,nume,prenume,email,parola) values (1010,'Tica', 'Agnus','utilizator@email.com','admin123');
+
+insert into anunt (id,titlu,categorie_id,pret,detalii,poza,judet_id,afisari,user_id) values ( 1000,'Skoda Octavia 2',1000,34200,'Functioneaza impecabil','skoda.jpg',2,0,1010);
+insert into anunt (id,titlu,categorie_id,pret,detalii,poza,judet_id,afisari,user_id) values ( 1002,'Alfa Romeo',1000,2405,'Mici probleme','alfa.jpg',5,0,1010);
+insert into anunt (id,titlu,categorie_id,pret,detalii,poza,judet_id,afisari,user_id) values ( 1003,'Mercedes',1000,8405,'Perfecta stare','mercedes.jpg',6,0,1010);
+
+insert into anunt (id,titlu,categorie_id,pret,detalii,poza,judet_id,afisari,user_id) values ( 1004,'Ducati 2',1001,34200,'Functioneaza impecabil','ducati.jpg',8,0,1000);
+insert into anunt (id,titlu,categorie_id,pret,detalii,poza,judet_id,afisari,user_id) values ( 1005,'Suzuki',1001,2405,'Mici probleme','suzuki.jpg',9,0,1000);
+insert into anunt (id,titlu,categorie_id,pret,detalii,poza,judet_id,afisari,user_id) values ( 1006,'BMW',1001,8405,'Perfecta stare','bmw.jpg',10,0,1000);
 
 
 create table judet (
@@ -61,32 +84,6 @@ create table judet (
   CONSTRAINT pk_judet PRIMARY KEY (id)
 
 );
-
-create sequence anunt_seq start with 1000;
-create sequence comentariu_seq start with 1000;
-create sequence judet_seq start with 1000;
-create sequence user_seq start with 1000;
-create sequence categorie_seq start with 1000;
-
-
-alter table anunt add constraint fk_anunt_user_1 foreign key (user_id) references user(id) on delete restrict on update restrict;
-create index ix_anunt_user_1 on anunt(user_id);
-
-alter table anunt ADD CONSTRAINT fk_anunt_categorie_1 FOREIGN KEY (categorie_id)
-  REFERENCES categorie(id) on DELETE restrict on update RESTRICT;
-
-alter table anunt ADD CONSTRAINT fk_anunt_judet_1 FOREIGN KEY (judet_id)
-  REFERENCES judet(id) on DELETE restrict on update RESTRICT;
-
-CREATE index ix_anunt_categorie_1 on anunt(categorie_id);
-
-
-alter table comentariu add constraint fk_comentariu_user_1
-  foreign key (user_id) REFERENCES user(id) on DELETE RESTRICT on UPDATE  RESTRICT ;
-create index ix_comentariu_user_1 on comentariu(user_id);
-
-alter table comentariu add constraint fk_comentariu_anunt_1
-  FOREIGN key (anunt_id) REFERENCES anunt(id) on DELETE RESTRICT on UPDATE RESTRICT ;
 
 
 # --- !Downs
